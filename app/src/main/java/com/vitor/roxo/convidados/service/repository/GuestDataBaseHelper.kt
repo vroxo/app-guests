@@ -3,9 +3,10 @@ package com.vitor.roxo.convidados.service.repository
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.os.Build
 import com.vitor.roxo.convidados.service.constants.DataBaseConstants
 
-class GuestDataBaseHelper(context: Context) : SQLiteOpenHelper(context, "", null, 1) {
+class GuestDataBaseHelper(context: Context) : SQLiteOpenHelper(context, NAME, null, VERSION) {
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(CREATE_TABLE_GUEST)
     }

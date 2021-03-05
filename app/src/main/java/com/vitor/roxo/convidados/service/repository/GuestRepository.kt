@@ -1,48 +1,40 @@
 package com.vitor.roxo.convidados.service.repository
 
+import android.content.ContentValues
 import android.content.Context
+import com.vitor.roxo.convidados.service.constants.DataBaseConstants
 import com.vitor.roxo.convidados.service.model.GuestModel
 
-class GuestRepository private constructor(context: Context){
+class GuestRepository(context: Context) {
 
-    private var mGuestDataBaseHelper: GuestDataBaseHelper = GuestDataBaseHelper(context)
+    private val mDatabase = GuestDatabase.getDatabase(context).guestDAO()
 
-    fun getAll(guest: GuestModel): List<GuestModel> {
-        val list: MutableList<GuestModel> = ArrayList()
-        return list
+    fun getAll(): List<GuestModel> {
+        return mDatabase.getInvited()
     }
 
-    companion object {
-        private lateinit var repository: GuestRepository
-
-        fun getInstance(context: Context): GuestRepository{
-            if(::repository.isInitialized){
-                repository = GuestRepository(context)
-            }
-            return GuestRepository(context)
-        }
+    fun get(id: Int): GuestModel {
+        return mDatabase.get(id)
     }
 
-    fun getPresent(guest: GuestModel): List<GuestModel> {
-        val list: MutableList<GuestModel> = ArrayList()
-        return list
+    fun getPresent(): List<GuestModel> {
+        return mDatabase.getPresent()
     }
 
-    fun getAbsent(guest: GuestModel): List<GuestModel> {
-        val list: MutableList<GuestModel> = ArrayList()
-        return list
+    fun getAbsent(): List<GuestModel> {
+        return mDatabase.getAbsent()
     }
 
-    fun save(guest: GuestModel) {
-
+    fun save(guest: GuestModel): Boolean {
+        return mDatabase.save(guest) > 0
     }
 
-    fun update(guest: GuestModel) {
-
+    fun update(guest: GuestModel): Boolean {
+        return mDatabase.update(guest) > 0
     }
 
     fun delete(guest: GuestModel) {
-
+        mDatabase.delete(guest)
     }
 
 }
